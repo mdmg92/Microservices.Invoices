@@ -2,13 +2,20 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{818BC0B9-F0A0-4511-BD7B-181574002D4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFORO255.MS.TEST.Invoice", "src\AFORO255.MS.TEST.Invoice\AFORO255.MS.TEST.Invoice.csproj", "{611AE1CD-2E12-41F4-B041-D5D04CA4E37D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{611AE1CD-2E12-41F4-B041-D5D04CA4E37D} = {818BC0B9-F0A0-4511-BD7B-181574002D4F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{611AE1CD-2E12-41F4-B041-D5D04CA4E37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611AE1CD-2E12-41F4-B041-D5D04CA4E37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611AE1CD-2E12-41F4-B041-D5D04CA4E37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611AE1CD-2E12-41F4-B041-D5D04CA4E37D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
