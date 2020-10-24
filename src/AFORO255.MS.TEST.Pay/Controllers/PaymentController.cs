@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,7 +7,7 @@ using Pay.Payments.Commands;
 namespace Pay.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PaymentController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,9 +20,9 @@ namespace Pay.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(AddPaymentCommand command)
+        public async Task<IActionResult> Post([FromBody]AddPaymentCommand command)
         {
-            return Ok(_mediator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
     }
 }
