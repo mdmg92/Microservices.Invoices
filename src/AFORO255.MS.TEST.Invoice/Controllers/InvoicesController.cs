@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace Invoices.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class InvoicesController : ControllerBase
     {
         private readonly IMediator _mediator;
