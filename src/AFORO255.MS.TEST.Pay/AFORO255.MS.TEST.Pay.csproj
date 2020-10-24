@@ -6,6 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
       <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.0.1" />
     </ItemGroup>
 

@@ -3,13 +3,25 @@ version: '3.8'
 services:
 
   # POSTGRES docker run --name postgres-database --network micro -e POSTGRES_PASSWORD=Aforo255#2019  -d -p 5434:5432  postgres
-  postgres-ms:
+  postgres-db:
     container_name: postgres-ms
     image: postgres
     ports:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=Aforo255#2019
+    networks:
+      - aforo255-test
+
+  # MYSQL docker run --name mysql-database --network micro  -e MYSQL_ROOT_PASSWORD=Aforo255#2019 -p 3307:3306 -p 33061:33060 -d mysql
+  mysql-db:
+    container_name: mysql-ms
+    image: mysql
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      - MYSQL_ROOT_PASSWORD=Aforo255#2019
     networks:
       - aforo255-test
 
@@ -23,6 +35,7 @@ services:
       - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/mdmg92/ms-test-config
     networks:
       - aforo255-test
+
 networks:
   aforo255-test:
     name: aforo255-test

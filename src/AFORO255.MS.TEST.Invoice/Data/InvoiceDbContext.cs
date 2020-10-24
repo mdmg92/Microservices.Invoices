@@ -11,7 +11,6 @@ namespace Invoices.Data
 
         public InvoiceDbContext(DbContextOptions<InvoiceDbContext> options) : base(options)
         {
-            // this.Database.GetService<IRelationalDatabaseCreator>().Create();
         }
     }
 }

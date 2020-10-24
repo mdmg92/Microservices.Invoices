@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pay.Data;
 
 namespace Pay
 {
@@ -19,11 +21,18 @@ namespace Pay
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<PaymentDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("Mysql"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            UpdateDatabase(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -36,6 +45,15 @@ namespace Pay
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+        
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serciveScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                DbContext context = serciveScope.ServiceProvider.GetRequiredService<PaymentDbContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }
