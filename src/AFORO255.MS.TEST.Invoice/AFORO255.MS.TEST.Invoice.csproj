@@ -5,6 +5,10 @@
         <RootNamespace>Invoices</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.0.1" />
+    </ItemGroup>
+
 
 
 </Project>
