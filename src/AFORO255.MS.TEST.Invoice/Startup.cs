@@ -1,4 +1,6 @@
+using System.Reflection;
 using Invoices.Data;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,8 @@ namespace Invoices
             {
                 options.UseNpgsql(Configuration.GetConnectionString("Postgres"));
             });
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

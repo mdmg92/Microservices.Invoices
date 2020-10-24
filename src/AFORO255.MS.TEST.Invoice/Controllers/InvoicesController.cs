@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Invoices.Invoices.Queries;
 using Invoices.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,17 +14,19 @@ namespace Invoices.Controllers
     [Route("[controller]")]
     public class InvoicesController : ControllerBase
     {
+        private readonly IMediator _mediator;
         private readonly ILogger<InvoicesController> _logger;
 
-        public InvoicesController(ILogger<InvoicesController> logger)
+        public InvoicesController(IMediator mediator, ILogger<InvoicesController> logger)
         {
+            _mediator = mediator;
             _logger = logger;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Invoice>> Get()
+        [HttpGet("{int:customer}")]
+        public async Task<ActionResult<IEnumerable<Invoice>>> Get(int customer)
         {
-            throw new NotImplementedException();
+            return Ok(await _mediator.Send(new GetInvoicesByCustomer {Id = customer}));
         }
     }
 }
