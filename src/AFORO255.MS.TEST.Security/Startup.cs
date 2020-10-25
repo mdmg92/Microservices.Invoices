@@ -1,3 +1,6 @@
+using System.Reflection;
+using Cross.Jwt;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +29,10 @@ namespace Security
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
             });
+
+            services.Configure<JwtOptions>(Configuration.GetSection("BearerToken"));
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
