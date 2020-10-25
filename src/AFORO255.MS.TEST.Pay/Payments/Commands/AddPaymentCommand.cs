@@ -38,6 +38,7 @@ namespace Pay.Payments.Commands
                 await _context.SaveChangesAsync(cancellationToken);
 
                 _bus.Publish(new InvoicePaymentAcceptedEvent(operation.InvoiceId));
+                _bus.Publish(new TransactionCreatedEvent(operation.InvoiceId, operation.Amount));
 
                 return operation.Id;
             }
