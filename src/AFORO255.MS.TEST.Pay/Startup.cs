@@ -1,4 +1,5 @@
 using System.Reflection;
+using Cross.EventBus;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace Pay
                     Title = "Pay app"
                 });
             });
+            
+            services.AddRabbitMq();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

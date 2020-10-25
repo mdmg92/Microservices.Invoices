@@ -36,6 +36,16 @@ services:
     networks:
       - aforo255-test
 
+  # RABBIT MQ docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq-service rabbitmq:3-management
+  bus-service-test:
+    container_name: rabbitmmq-service
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - aforo255-test
+
 networks:
   aforo255-test:
     name: aforo255-test

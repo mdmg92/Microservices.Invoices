@@ -1,5 +1,8 @@
 using System.Reflection;
+using Cross.EventBus;
+using Cross.EventBus.Bus;
 using Invoices.Data;
+using Invoices.Invoices.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +43,11 @@ namespace Invoices
                     Title = "Invoice app"
                 });
             });
+
+            services.AddRabbitMq();
+            services.AddTransient<InvoicePaymentAcceptedEvent.InvoicePaymentAcceptedEventHandler>();
+            services.AddTransient<IEventHandler<InvoicePaymentAcceptedEvent>,
+                InvoicePaymentAcceptedEvent.InvoicePaymentAcceptedEventHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +72,8 @@ namespace Invoices
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            
+            ConfigureEventBus(app);
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)
@@ -73,6 +83,12 @@ namespace Invoices
                 DbContext context = serciveScope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
                 context.Database.Migrate();
             }
+        }
+
+        private static void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var bus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            bus.Subscribe<InvoicePaymentAcceptedEvent, InvoicePaymentAcceptedEvent.InvoicePaymentAcceptedEventHandler>();
         }
     }
 }

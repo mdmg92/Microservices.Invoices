@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Invoices\Events" />
+      <ProjectReference Include="..\AFORO255.MS.TEST.Cross.EventBus\AFORO255.MS.TEST.Cross.EventBus.csproj" />
     </ItemGroup>
 
 
