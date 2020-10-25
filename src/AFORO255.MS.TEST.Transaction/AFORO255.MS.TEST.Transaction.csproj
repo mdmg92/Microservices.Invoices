@@ -5,4 +5,9 @@
         <RootNamespace>Transactions</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
+      <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="3.0.1" />
+    </ItemGroup>
+
 </Project>

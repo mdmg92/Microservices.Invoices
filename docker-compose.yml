@@ -25,6 +25,15 @@ services:
     networks:
       - aforo255-test
 
+  # MONGO docker run -p 27018:27017 --network micro --name mongo-database -d mongo
+  mongo-db:
+    container_name: mongo-db
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - aforo255-test
+
   # CONFIG docker run -d --name config-service -p 8888:8888 -e SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/ivancuadros1988/msconfig  hyness/spring-cloud-config-server
   config-service-test:
     container_name: config-server
