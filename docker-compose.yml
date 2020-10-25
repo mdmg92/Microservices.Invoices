@@ -34,6 +34,17 @@ services:
     networks:
       - aforo255-test
 
+  sqlserver-db:
+    container_name: sqlserver-db
+    image: mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
+    ports:
+      - 1433:1433
+    environment:
+      - SA_PASSWORD=Aforo255#2019
+      - ACCEPT_EULA=Y
+    networks:
+      - aforo255-test
+
   # CONFIG docker run -d --name config-service -p 8888:8888 -e SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/ivancuadros1988/msconfig  hyness/spring-cloud-config-server
   config-service-test:
     container_name: config-server
