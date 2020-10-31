@@ -23,7 +23,7 @@ namespace Invoices.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{int:customer}")]
+        [HttpGet("{customer:int}")]
         public async Task<ActionResult<IEnumerable<Invoice>>> Get(int customer)
         {
             return Ok(await _mediator.Send(new GetInvoicesByCustomer {Id = customer}));
