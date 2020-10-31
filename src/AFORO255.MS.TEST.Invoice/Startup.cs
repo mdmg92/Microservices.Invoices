@@ -1,4 +1,7 @@
 using System.Reflection;
+using AFORO255.MS.TEST.Cross.Consul.Consul;
+using AFORO255.MS.TEST.Cross.Consul.Mvc;
+using Consul;
 using Cross.EventBus;
 using Cross.EventBus.Bus;
 using Invoices.Data;
@@ -6,6 +9,7 @@ using Invoices.Invoices.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,10 +52,18 @@ namespace Invoices
             services.AddTransient<InvoicePaymentAcceptedEvent.InvoicePaymentAcceptedEventHandler>();
             services.AddTransient<IEventHandler<InvoicePaymentAcceptedEvent>,
                 InvoicePaymentAcceptedEvent.InvoicePaymentAcceptedEventHandler>();
+
+            services.AddScoped<IServiceId, ServiceId>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddConsul();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IHostApplicationLifetime appLife,
+            IConsulClient consulClient)
         {
             UpdateDatabase(app);
 
@@ -74,6 +86,12 @@ namespace Invoices
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             
             ConfigureEventBus(app);
+
+            var service = app.UseConsul();
+            appLife.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(service);
+            });
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)

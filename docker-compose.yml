@@ -66,7 +66,18 @@ services:
     networks:
       - aforo255-test
 
+  # CONSUL docker run --name consul-service --network micro -p 8500:8500 -d consul
+  consul-service-test:
+    container_name: consul-service-test
+    image: consul
+    ports:
+      - 8500:8500
+    networks:
+      - aforo255-test
+
 networks:
   aforo255-test:
     name: aforo255-test
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: aforo255-test
