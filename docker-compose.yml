@@ -152,6 +152,27 @@ services:
       - bus-service-test
       - sqlserver-db
 
+  app-transaction:
+    container_name: app-transaction
+    build:
+      context: .
+      dockerfile: src/AFORO255.MS.TEST.Transaction/Dockerfile
+    environment:
+      - Consul:Service=app-transaction
+      - Consul:Address=app-transaction
+      - Consul:Port=80
+      - Fabio:Service=app-transaction
+    ports:
+      - 5004:80
+    networks:
+      - aforo255-test
+    depends_on:
+      - config-service-test
+      - consul-service-test
+      - balance-service-test
+      - bus-service-test
+      - mongo-db
+
 networks:
   aforo255-test:
     name: aforo255-test

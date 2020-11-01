@@ -1,9 +1,14 @@
 using System.Reflection;
+using AFORO255.MS.TEST.Cross.Consul.Consul;
+using AFORO255.MS.TEST.Cross.Consul.Fabio;
+using AFORO255.MS.TEST.Cross.Consul.Mvc;
+using Consul;
 using Cross.EventBus;
 using Cross.EventBus.Bus;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,17 +44,25 @@ namespace Transactions
             services.AddRabbitMq();
             services.AddTransient<TransactionCreatedEvent.TransactionCreatedEventHandler>();
             services.AddTransient<IEventHandler<TransactionCreatedEvent>, TransactionCreatedEvent.TransactionCreatedEventHandler>();
+            
+            services.AddScoped<IServiceId, ServiceId>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddConsul();
+
+            services.AddFabio();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IHostApplicationLifetime appLife,
+            IConsulClient consulClient)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -58,6 +71,12 @@ namespace Transactions
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             ConfigureEventBus(app);
+            
+            var service = app.UseConsul();
+            appLife.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(service);
+            });
         }
         
         private static void ConfigureEventBus(IApplicationBuilder app)
