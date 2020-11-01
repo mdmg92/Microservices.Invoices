@@ -5,5 +5,9 @@
         <RootNamespace>AFORO.MS.TEST.Gateway</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Ocelot" Version="16.0.1" />
+    </ItemGroup>
+
 
 </Project>
