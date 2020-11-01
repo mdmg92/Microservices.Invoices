@@ -89,8 +89,8 @@ services:
     depends_on:
       - consul-service-test
   
-  invoice-app:
-    container_name: invoice-app
+  app-invoices:
+    container_name: app-invoices
     build: 
       context: .
       dockerfile: src/AFORO255.MS.TEST.Invoice/Dockerfile

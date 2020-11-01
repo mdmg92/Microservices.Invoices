@@ -8,10 +8,10 @@
       "applicationUrl": "http://localhost:5002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Consul:Service": "invoice-app",
+        "Consul:Service": "app-invoices",
         "Consul:Address": "host.docker.internal",
         "Consul:Port": "5002",
-        "Fabio:Service": "invoice-app"
+        "Fabio:Service": "app-invoices"
       }
     }
   }
