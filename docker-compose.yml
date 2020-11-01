@@ -94,6 +94,11 @@ services:
     build: 
       context: .
       dockerfile: src/AFORO255.MS.TEST.Invoice/Dockerfile
+    environment: 
+      - Consul:Service=app-invoices
+      - Consul:Address=app-invoices
+      - Consul:Port=80
+      - Fabio:Service=app-invoices
     ports:
       - 5002:80
     networks:
