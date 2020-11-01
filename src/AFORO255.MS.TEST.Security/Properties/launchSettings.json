@@ -5,9 +5,13 @@
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "",
-      "applicationUrl": "https://locaweatherforecastlhost:5001;http://localhost:5000",
+      "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Consul:Service": "app-security",
+        "Consul:Address": "host.docker.internal",
+        "Consul:Port": "5001",
+        "Fabio:Service": "app-security"
       }
     }
   }

@@ -131,6 +131,27 @@ services:
       - bus-service-test
       - mysql-db
 
+  app-security:
+    container_name: app-security
+    build:
+      context: .
+      dockerfile: src/AFORO255.MS.TEST.Security/Dockerfile
+    environment:
+      - Consul:Service=app-security
+      - Consul:Address=app-security
+      - Consul:Port=80
+      - Fabio:Service=app-security
+    ports:
+      - 5001:80
+    networks:
+      - aforo255-test
+    depends_on:
+      - config-service-test
+      - consul-service-test
+      - balance-service-test
+      - bus-service-test
+      - sqlserver-db
+
 networks:
   aforo255-test:
     name: aforo255-test
