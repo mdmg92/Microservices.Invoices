@@ -109,6 +109,27 @@ services:
       - balance-service-test
       - bus-service-test
       - postgres-db
+        
+  app-pay:
+    container_name: app-pay
+    build:
+      context: .
+      dockerfile: src/AFORO255.MS.TEST.Pay/Dockerfile
+    environment:
+      - Consul:Service=app-pay
+      - Consul:Address=app-pay
+      - Consul:Port=80
+      - Fabio:Service=app-pay
+    ports:
+      - 5003:80
+    networks:
+      - aforo255-test
+    depends_on:
+      - config-service-test
+      - consul-service-test
+      - balance-service-test
+      - bus-service-test
+      - mysql-db
 
 networks:
   aforo255-test:
