@@ -4,7 +4,7 @@ services:
 
   # POSTGRES docker run --name postgres-database --network micro -e POSTGRES_PASSWORD=Aforo255#2019  -d -p 5434:5432  postgres
   postgres-db:
-    container_name: postgres-ms
+    container_name: postgres-db
     image: postgres
     ports:
       - 5432:5432
@@ -15,7 +15,7 @@ services:
 
   # MYSQL docker run --name mysql-database --network micro  -e MYSQL_ROOT_PASSWORD=Aforo255#2019 -p 3307:3306 -p 33061:33060 -d mysql
   mysql-db:
-    container_name: mysql-ms
+    container_name: mysql-db
     image: mysql
     ports:
       - 3306:3306
@@ -47,7 +47,7 @@ services:
 
   # CONFIG docker run -d --name config-service -p 8888:8888 -e SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/ivancuadros1988/msconfig  hyness/spring-cloud-config-server
   config-service-test:
-    container_name: config-server
+    container_name: config-service-test
     image: hyness/spring-cloud-config-server
     ports:
       - 8888:8888
@@ -58,7 +58,7 @@ services:
 
   # RABBIT MQ docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq-service rabbitmq:3-management
   bus-service-test:
-    container_name: rabbitmmq-service
+    container_name: bus-service-test
     image: rabbitmq:3-management
     ports:
       - 15672:15672
@@ -74,6 +74,21 @@ services:
       - 8500:8500
     networks:
       - aforo255-test
+  
+  invoice-app:
+    container_name: invoice-app
+    build: 
+      context: .
+      dockerfile: src/AFORO255.MS.TEST.Invoice/Dockerfile
+    ports:
+      - 5002:80
+    networks:
+      - aforo255-test
+    depends_on:
+      - config-service-test
+      - consul-service-test
+      - bus-service-test
+      - postgres-db
 
 networks:
   aforo255-test:
