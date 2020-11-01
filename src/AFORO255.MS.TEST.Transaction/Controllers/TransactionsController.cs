@@ -22,7 +22,7 @@ namespace Transactions.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{int:invoice}")]
+        [HttpGet("{invoice:int}")]
         public async Task<ActionResult<IEnumerable<Transaction>>> Get(int invoice)
         {
             return Ok(await _mediator.Send(new GetTransactionsByInvoiceId { Id = invoice }));
