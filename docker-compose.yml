@@ -74,6 +74,20 @@ services:
       - 8500:8500
     networks:
       - aforo255-test
+
+  # FABIO docker run --name fabio-service -e FABIO_REGISTRY_CONSUL_ADDR=consul-service:8500 -p 9998:9998 -p 9999:9999 -d --network micro  fabiolb/fabio
+  balance-service-test:
+    container_name: balance-service-test
+    image: fabiolb/fabio
+    ports:
+      - 9998:9998
+      - 9999:9999
+    environment:
+      - FABIO_REGISTRY_CONSUL_ADDR=consul-service-test:8500
+    networks:
+      - aforo255-test
+    depends_on:
+      - consul-service-test
   
   invoice-app:
     container_name: invoice-app
@@ -87,6 +101,7 @@ services:
     depends_on:
       - config-service-test
       - consul-service-test
+      - balance-service-test
       - bus-service-test
       - postgres-db
 

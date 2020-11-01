@@ -1,5 +1,6 @@
 using System.Reflection;
 using AFORO255.MS.TEST.Cross.Consul.Consul;
+using AFORO255.MS.TEST.Cross.Consul.Fabio;
 using AFORO255.MS.TEST.Cross.Consul.Mvc;
 using Consul;
 using Cross.EventBus;
@@ -56,6 +57,8 @@ namespace Invoices
             services.AddScoped<IServiceId, ServiceId>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddConsul();
+
+            services.AddFabio();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

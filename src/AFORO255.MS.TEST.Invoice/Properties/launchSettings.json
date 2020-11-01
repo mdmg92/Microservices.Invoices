@@ -10,7 +10,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "Consul:Service": "invoice-app",
         "Consul:Address": "host.docker.internal",
-        "Consul:Port": "5002"
+        "Consul:Port": "5002",
+        "Fabio:Service": "invoice-app"
       }
     }
   }

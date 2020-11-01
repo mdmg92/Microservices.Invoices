@@ -14,6 +14,7 @@ ENV ASPNETCORE_ENVIRONMENT Docker
 ENV CONSUL:Service invoice-app
 ENV CONSUL:Address invoice-app
 ENV CONSUL:Port 80
+ENV Fabio:Service invoice-app
 
 EXPOSE 80/tcp
 
