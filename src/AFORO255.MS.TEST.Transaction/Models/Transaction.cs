@@ -7,7 +7,7 @@ namespace Transactions.Models
     {
         [BsonId]
         [BsonElement("id_transaction")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [BsonElement("id_invoice")]
         public int InvoiceId { get; set; }

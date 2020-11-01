@@ -26,6 +26,7 @@ namespace Transactions.Transactions.Events
             {
                 var transaction = new Transaction
                 {
+                    Id = Guid.NewGuid(),
                     InvoiceId = @event.InvoiceId,
                     Amount = @event.Amount,
                     Date = @event.Date
