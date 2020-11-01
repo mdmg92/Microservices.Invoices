@@ -22,7 +22,7 @@ namespace AFORO.MS.TEST.Gateway
                 {
                     webBuilder.ConfigureAppConfiguration((host, config) =>
                     {
-                        config.AddJsonFile("ocelot.json", false);
+                        config.AddJsonFile($"ocelot.{host.HostingEnvironment.EnvironmentName}.json", false);
                     });
                     
                     webBuilder.UseStartup<Startup>();

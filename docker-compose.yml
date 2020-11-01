@@ -172,6 +172,16 @@ services:
       - balance-service-test
       - bus-service-test
       - mongo-db
+        
+  app-gateway:
+    container_name: app-gateway
+    build:
+      context: .
+      dockerfile: src/AFORO255.MS.TEST.Gateway/Dockerfile
+    ports:
+      - 5000:80
+    networks:
+      - aforo255-test
 
 networks:
   aforo255-test:

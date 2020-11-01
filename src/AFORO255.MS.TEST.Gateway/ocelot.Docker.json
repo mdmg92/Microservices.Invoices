@@ -1,0 +1,55 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://app-gateway:5000"
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/app-security/api/auth",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "balance-service-test",
+          "Port": 9999
+        }
+      ],
+      "UpstreamPathTemplate": "/api/token",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/app-invoices/api/invoices/{customer}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "balance-service-test",
+          "Port": 9999
+        }
+      ],
+      "UpstreamPathTemplate": "/api/invoices/{customer}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/app-pay/api/payment",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "balance-service-test",
+          "Port": 9999
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payment",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/app-transaction/api/transactions/{invoice}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "balance-service-test",
+          "Port": 9999
+        }
+      ],
+      "UpstreamPathTemplate": "/api/transactions/{invoice}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ]
+}
