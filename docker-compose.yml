@@ -182,6 +182,8 @@ services:
       - 5000:80
     networks:
       - aforo255-test
+    depends_on:
+      - app-security
 
 networks:
   aforo255-test:

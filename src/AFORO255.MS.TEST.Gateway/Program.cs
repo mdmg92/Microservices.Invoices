@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Steeltoe.Extensions.Configuration.ConfigServer;
 
 namespace AFORO.MS.TEST.Gateway
 {
@@ -25,6 +21,11 @@ namespace AFORO.MS.TEST.Gateway
                         config.AddJsonFile($"ocelot.{host.HostingEnvironment.EnvironmentName}.json", false);
                     });
                     
+                    webBuilder.ConfigureAppConfiguration((host, config) =>
+                    {
+                        config.AddConfigServer(host.HostingEnvironment.EnvironmentName);
+                    });
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

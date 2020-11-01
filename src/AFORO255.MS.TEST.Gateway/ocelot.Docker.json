@@ -25,7 +25,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/invoices/{customer}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "SECURITY-TOKEN",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/app-pay/api/payment",
@@ -37,7 +41,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/payment",
-      "UpstreamHttpMethod": [ "Post" ]
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "SECURITY-TOKEN",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/app-transaction/api/transactions/{invoice}",
@@ -49,7 +57,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/transactions/{invoice}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "SECURITY-TOKEN",
+        "AllowedScopes": []
+      }
     }
   ]
 }
