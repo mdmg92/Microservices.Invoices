@@ -88,6 +88,31 @@ services:
       - aforo255-test
     depends_on:
       - consul-service-test
+        
+  zookeeper:
+    image: 'docker.io/bitnami/zookeeper:3-debian-10'
+    ports:
+      - '2181:2181'
+    volumes:
+      - 'zookeeper_data:/bitnami'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - aforo255-test
+
+  kafka:
+    image: 'docker.io/bitnami/kafka:2-debian-10'
+    ports:
+      - '9092:9092'
+    volumes:
+      - 'kafka_data:/bitnami'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+    networks:
+      - aforo255-test
   
   app-invoices:
     container_name: app-invoices
@@ -191,3 +216,9 @@ networks:
     driver: bridge
     driver_opts:
       com.docker.network.bridge.name: aforo255-test
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
